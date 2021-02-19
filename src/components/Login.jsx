@@ -5,11 +5,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  // window.fbAsyncInit = function () {
+  //   FB.init({
+  //     appId: "{your-app-id}",
+  //     cookie: true,
+  //     xfbml: true,
+  //     version: "{api-version}",
+  //   });
+
+  //   FB.AppEvents.logPageView();
+  // };
+
+  // (function (d, s, id) {
+  //   var js,
+  //     fjs = d.getElementsByTagName(s)[0];
+  //   if (d.getElementById(id)) {
+  //     return;
+  //   }
+  //   js = d.createElement(s);
+  //   js.id = id;
+  //   js.src = "https://connect.facebook.net/en_US/sdk.js";
+  //   fjs.parentNode.insertBefore(js, fjs);
+  // })(document, "script", "facebook-jssdk");
+
+  // FB.getLoginStatus(function(response) {
+  //   statusChangeCallback(response);
+  // });
   return (
     <>
       <section className="container-fluid login">
         <div className="login-logo">
-          <Link to='/'>
+          <Link to="/">
             <img src={logo} />
           </Link>
         </div>
@@ -53,9 +79,9 @@ const Login = () => {
             </div>
 
             <Link to="/">
-            <div href="#" className="login-button login-spotify">
-              LOG IN
-            </div>
+              <div href="#" className="login-button login-spotify">
+                LOG IN
+              </div>
             </Link>
           </div>
           <hr />

@@ -118,7 +118,7 @@ const AsideMenu = (props) => {
         </div>
 
         <div className="stick-to-bottom-index-page">
-          {/* <Link to="/login">
+          <Link to="/login">
             <div className="login-button-index">
               <span>SIGN UP</span>
             </div>
@@ -127,8 +127,8 @@ const AsideMenu = (props) => {
             <div className="login-button-index">
               <span>LOGIN</span>
             </div>
-          </Link> */}
-          <div>{loginButton()}</div>
+          </Link>
+          {/* <div>{loginButton()}</div> */}
           <div className="install-btn">
             <a href="#">
               <FontAwesomeIcon icon={faArrowCircleDown} /> Install
