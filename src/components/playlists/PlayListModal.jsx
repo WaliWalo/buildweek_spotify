@@ -3,6 +3,7 @@ import { Modal, Button, Spinner } from "react-bootstrap";
 import { BsClock, BsFillPlayFill } from "react-icons/bs";
 import { connect } from "react-redux";
 import { ActionCreators as UndoActionCreators } from "redux-undo";
+import { deleteSongFromPlaylist, getTrack } from "../../apis/playlist";
 const mapStateToProps = (state) => {
   return { ...state, canUndo: state.playlists.past.length > 0 };
 };
@@ -16,9 +17,9 @@ const mapDispatchToProps = (dispatch) => ({
 class PlayListModal extends Component {
   state = { songs: [], loading: true };
 
-  //   componentDidMount() {
-  //     this.fetchSongs();
-  //   }
+  componentDidMount() {
+    this.fetchSongs();
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.selectedPlaylist !== prevProps.selectedPlaylist) {
@@ -35,35 +36,29 @@ class PlayListModal extends Component {
 
   fetchSongs = () => {
     this.setState({ songs: [] });
-    let playlist = this.props.playlists.present.find(
-      (playlist) => playlist.name === this.props.selectedPlaylist.name
-    );
-    if (playlist !== undefined) {
-      playlist.songs.forEach(async (song) => {
-        try {
-          const resp = await fetch(
-            `https://deezerdevs-deezer.p.rapidapi.com/track/${song}`,
-            {
-              method: "GET",
-              headers: {
-                "x-rapidapi-key":
-                  "db388dbec5mshc59db4d245728fep1c2998jsna21051d70dc4",
-                "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com",
-              },
+    if (this.props.selectedPlaylist) {
+      let playlist = this.props.playlists.present.find((playlist) => {
+        console.log(playlist.playlist._id);
+        return playlist.playlist._id === this.props.selectedPlaylist._id;
+      });
+      console.log(playlist);
+      if (playlist !== undefined) {
+        playlist.playlist.songs.forEach(async (song) => {
+          try {
+            const resp = await getTrack(song.songId);
+            if (resp.ok) {
+              let data = await resp.json();
+              this.setState({ songs: [...this.state.songs.concat(data)] });
+            } else {
+              let error = resp;
+              console.log(error);
             }
-          );
-          if (resp.ok) {
-            let data = await resp.json();
-            this.setState({ songs: [...this.state.songs.concat(data)] });
-          } else {
-            let error = resp;
+          } catch (error) {
             console.log(error);
           }
-        } catch (error) {
-          console.log(error);
-        }
-      });
-      this.setState({ loading: false });
+        });
+        this.setState({ loading: false });
+      }
     }
   };
 
@@ -79,13 +74,27 @@ class PlayListModal extends Component {
     return " " + hDisplay + mDisplay + sDisplay;
   };
 
-  handleRemove = (id) => {
+  handleRemove = async (id) => {
     console.log(id);
-    let payload = {
-      name: this.props.selectedPlaylist.name,
-      song: id,
-    };
-    this.props.removeFromPlaylist(payload);
+    try {
+      const res = await deleteSongFromPlaylist(
+        this.props.selectedPlaylist._id,
+        id
+      );
+      console.log(res);
+      if (res.ok) {
+        let data = await res.json();
+        const payload = {
+          _id: this.props.selectedPlaylist._id,
+          songId: { _id: id },
+          userId: data.userId,
+          name: this.props.selectedPlaylist.name,
+        };
+        this.props.removeFromPlaylist(payload);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {

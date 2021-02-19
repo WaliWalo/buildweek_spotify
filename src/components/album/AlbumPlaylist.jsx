@@ -6,6 +6,7 @@ import { Spinner, Button, Modal, Form } from "react-bootstrap";
 import { ColorExtractor } from "react-color-extractor";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { addSongToPlaylist } from "../../apis/playlist";
 
 const mapStateToProps = (state) => state;
 
@@ -26,7 +27,7 @@ class AlbumPlaylist extends Component {
     loading: "true",
     colors: [],
     show: false,
-    selectedPlaylist: null,
+    selectedPlaylist: { _id: "", name: "" },
     selectedSong: "",
   };
 
@@ -48,16 +49,31 @@ class AlbumPlaylist extends Component {
 
   handlePlaylistSelect = (e) => {
     console.log(e.target.value);
-    this.setState({ selectedPlaylist: e.target.value });
+    this.setState({
+      selectedPlaylist: { _id: e.target.value, name: e.target.id },
+    });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const payload = {
-      name: this.state.selectedPlaylist,
-      song: this.state.selectedSong,
-    };
-    this.props.addToPlayList(payload);
+    console.log(this.state.selectedSong);
+    this.addSong();
+  };
+
+  addSong = async () => {
+    const res = await addSongToPlaylist(
+      this.state.selectedPlaylist._id,
+      this.state.selectedSong
+    );
+    if (res.ok) {
+      const payload = {
+        _id: this.state.selectedPlaylist._id,
+        songId: { _id: this.state.selectedSong },
+        userId: res.userId,
+        name: this.state.selectedPlaylist.name,
+      };
+      this.props.addToPlayList(payload);
+    }
   };
 
   componentDidMount = () => {
@@ -247,7 +263,7 @@ class AlbumPlaylist extends Component {
                 </Modal.Header>
                 <Form onSubmit={(e) => this.handleSubmit(e)}>
                   <Modal.Body>
-                    <Form.Group controlId="exampleForm.ControlSelect1">
+                    <Form.Group>
                       <Form.Label>Select Playlist</Form.Label>
                       <Form.Control
                         as="select"
@@ -255,7 +271,12 @@ class AlbumPlaylist extends Component {
                       >
                         {this.props.playlists.present.length > 0 &&
                           this.props.playlists.present.map((playlist) => (
-                            <option>{playlist.name}</option>
+                            <option
+                              value={playlist.playlist._id}
+                              id={playlist.playlist.name}
+                            >
+                              {playlist.playlist.name}
+                            </option>
                           ))}
                       </Form.Control>
                     </Form.Group>
