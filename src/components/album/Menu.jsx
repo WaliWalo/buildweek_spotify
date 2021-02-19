@@ -7,7 +7,7 @@ import { BsPlusSquareFill } from 'react-icons/bs'
 import { AiFillHeart } from 'react-icons/ai';
 import { FiArrowDownCircle } from 'react-icons/fi'
 import logo from '../../assets/logo.png'
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class Menu extends Component {
   render() {
@@ -15,14 +15,14 @@ class Menu extends Component {
       <div>
         <aside>
           <div>
-              <Link to={'/'}><img src={logo} alt="logo" className="logo" /></Link>
+            <Link to={'/'}><img src={logo} alt="logo" className="logo" /></Link>
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-            <Link to={'/'}>
-              <a className='link'>
-                {" "}
-                <FiHome className='basic' />
+              <Link to={'/'}>
+                <a className='link'>
+                  {" "}
+                  <FiHome className='basic' />
                 Home
               </a>
               </Link>
@@ -30,17 +30,17 @@ class Menu extends Component {
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-            <Link to={'/search'}>
-              <a className='link'>
-                {" "}
-                <BiSearch className='basic' />Search
+              <Link to={'/search'}>
+                <a className='link'>
+                  {" "}
+                  <BiSearch className='basic' />Search
               </a>
               </Link>
             </div>
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-              <a href="#">
+              <a>
                 {" "}
                 <VscLibrary className='basic' />Your library
               </a>
@@ -48,21 +48,21 @@ class Menu extends Component {
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-              <a href="#">
+              <a>
                 <BsPlusSquareFill className='basic' />Create playlist
               </a>
             </div>
           </div>
           <div className="menu d-flex column justify-content-start align-items-center">
             <div className="col">
-              <a href="#">
-                <AiFillHeart className='basic'/>Liked Songs
+              <a>
+                <AiFillHeart className='basic' />Liked Songs
               </a>
             </div>
           </div>
 
           <hr />
-        <p style={{marginLeft: '2em'}}><em>Playlists:</em></p>
+          <p style={{ marginLeft: '2em' }}><em>Playlists:</em></p>
           <div className="playlists playlist-items">
             <p>#playlist 1</p>
             <p>#playlist 2</p>
@@ -78,8 +78,8 @@ class Menu extends Component {
 
           <ul className="stick-to-bottom install-btn">
             <li>
-              <a href="#">
-                <FiArrowDownCircle className='basic'/> Install
+              <a>
+                <FiArrowDownCircle className='basic' /> Install
               </a>
             </li>
           </ul>

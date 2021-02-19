@@ -1,8 +1,8 @@
 import React from "react";
 import "../styles/login.css";
 import logo from "../assets/logo.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const Login = () => {
   // window.fbAsyncInit = function () {
@@ -36,7 +36,7 @@ const Login = () => {
       <section className="container-fluid login">
         <div className="login-logo">
           <Link to="/">
-            <img src={logo} />
+            <img src={logo} alt="logo" />
           </Link>
         </div>
         <div className="login-container">
@@ -62,7 +62,7 @@ const Login = () => {
             <input placeholder="Password" type="password" />
           </div>
           <p>
-            <a className="forgot-password" href="#">
+            <a className="forgot-password">
               Forget your password?
             </a>
           </p>
@@ -79,7 +79,7 @@ const Login = () => {
             </div>
 
             <Link to="/">
-              <div href="#" className="login-button login-spotify">
+              <div className="login-button login-spotify">
                 LOG IN
               </div>
             </Link>
@@ -87,9 +87,9 @@ const Login = () => {
           <hr />
           <div className="login-footer">
             <span>Don't have an account?</span>
-            <div className="login-button login-signup">
-              <span>SIGN UP ON SPOTIFY</span>
-            </div>
+            <Button href="/signup" className="login-button login-signup" >
+              <span >SIGN UP ON SPOTIFY</span>
+            </Button>
           </div>
         </div>
       </section>

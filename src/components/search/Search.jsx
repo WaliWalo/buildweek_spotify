@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import Downshift from "downshift";
 import "../../styles/search.css";
 import { BsMusicNote } from "react-icons/bs";
-import { Row, Col } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 
 class Search extends Component {
@@ -97,6 +96,7 @@ class Search extends Component {
                     <div
                       style={{ background: "red" }}
                       {...getItemProps({ key: index, index, item })}
+                      // eslint-disable-next-line react/jsx-no-duplicate-props
                       style={{
                         backgroundColor:
                           highlightedIndex === index ? "lightgray" : "white",

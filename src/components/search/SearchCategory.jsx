@@ -10,22 +10,25 @@ class SearchCategory extends Component {
     }
 
     getColors = (colors) =>
-    this.setState((state) => ({ colors: [...state.colors, ...colors] }));
+        this.setState((state) => ({ colors: [...state.colors, ...colors] }));
 
     render() {
         return (
             <>
-            <ColorExtractor getColors={this.getColors}>
-                <img src={this.props.img} style={{display: 'none' }} />
-            </ColorExtractor>
+                <ColorExtractor getColors={this.getColors}>
+                    <img src={this.props.img} style={{ display: 'none' }} alt="album cover" />
+                </ColorExtractor>
 
-            <Col xs={12} md={4} lg={3}>
-              <div className='cardHolder' style={{background: `${this.state.colors[0]}`,
-                background: `linear-gradient(0deg, ${this.state.colors[0]}44 0%, ${this.state.colors[0]} 100%)`}}>
-                  <h5>{this.props.title}</h5>
-                  <img src={this.props.img} alt={`${this.props.title} image`}/>
-              </div>
-            </Col>
+                <Col xs={12} md={4} lg={3}>
+                    <div className='cardHolder' style={{
+                        background: `${this.state.colors[0]}`,
+                        // eslint-disable-next-line no-dupe-keys
+                        background: `linear-gradient(0deg, ${this.state.colors[0]}44 0%, ${this.state.colors[0]} 100%)`
+                    }}>
+                        <h5>{this.props.title}</h5>
+                        <img src={this.props.img} alt={`${this.props.title}`} />
+                    </div>
+                </Col>
             </>
         );
     }

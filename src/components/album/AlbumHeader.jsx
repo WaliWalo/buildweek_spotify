@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "../../styles/albums.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { AiOutlineUser, AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { BsChevronDown } from "react-icons/bs";
-import { Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { Nav, NavDropdown } from "react-bootstrap";
 import { ColorExtractor } from "react-color-extractor";
 import { connect } from "react-redux";
 
@@ -47,7 +47,7 @@ class AlbumHeader extends Component {
     return (
       <>
         <ColorExtractor getColors={this.getColors}>
-          <img src={this.state.album.cover_big} style={{ display: "none" }} />
+          <img src={this.state.album.cover_big} style={{ display: "none" }} alt="album cover" />
         </ColorExtractor>
         {console.log("header COLORS:::::::", this.state.colors)}
 
@@ -62,7 +62,7 @@ class AlbumHeader extends Component {
           </div>
 
           <div className="header-btns">
-            <a href="#">
+            <a>
               <button
                 className="upgrade-btn"
                 value="upgrade"

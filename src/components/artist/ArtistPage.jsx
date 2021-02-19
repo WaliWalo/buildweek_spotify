@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import "../../styles/styles.css";
 import Player from "../Player";
 import Menu from "../album/Menu";
-import ArtistHeader from "./ArtistHeader";
-import { Row, Spinner } from "react-bootstrap";
+import {
+  Spinner
+} from "react-bootstrap";
 import backgroundImg from "../../assets/rock-concert.jpg";
 import SingleSong from "../SingleSong";
-import {withRouter, Link} from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 class ArtistPage extends Component {
   state = {
@@ -17,7 +18,7 @@ class ArtistPage extends Component {
   };
 
   componentDidMount = () => {
-    this.fetchAlbums(this.props.match.params.artist);    
+    this.fetchAlbums(this.props.match.params.artist);
   };
 
   fetchAlbums = (artist) => {
@@ -53,15 +54,15 @@ class ArtistPage extends Component {
             className="main-content"
             style={{ overflowY: "hidden !important" }}
           >
-            <img src={backgroundImg} />
+            <img src={backgroundImg} alt="background" />
             <div>
-            
+
               <div
                 className="container mt-3 justify-center"
                 style={{ position: "relative" }}
               >
                 <div className="jumbotron d-flex justify-content-center flex-column">
-                {this.state.loading ? (
+                  {this.state.loading ? (
                     <Spinner
                       animation="grow"
                       variant="light"
@@ -71,21 +72,19 @@ class ArtistPage extends Component {
                         justifyContent: "center",
                       }}
                     />
-                ) : (
-                  <div>
-                    <h1 className="display-4">{this.state.albums.data[0].artist.name}</h1>
-                  </div>)}
+                  ) : (
+                      <div>
+                        <h1 className="display-4">{this.state.albums.data[0].artist.name}</h1>
+                      </div>)}
                   <div className="d-flex d-md-none  row">
                     <a
                       className="artist-pg-play-btn btn"
-                      href="#"
                       role="button"
                     >
                       PLAY
                     </a>
                     <a
                       className="artist-pg-follow-btn btn btn-outline-light btn-lg"
-                      href="#"
                       role="button"
                     >
                       FOLLOW
@@ -94,14 +93,12 @@ class ArtistPage extends Component {
                   <div className="d-none d-md-flex column">
                     <a
                       className="artist-pg-play-btn btn"
-                      href="#"
                       role="button"
                     >
                       PLAY
                     </a>
                     <a
                       className="artist-pg-follow-btn btn btn-outline-light btn-lg"
-                      href="#"
                       role="button"
                     >
                       FOLLOW
@@ -187,13 +184,13 @@ class ArtistPage extends Component {
                     className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
                   >
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item">
                       OVERVIEW
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item">
                       RELATED ARTIST
                     </a>
-                    <a className="dropdown-item" href="#">
+                    <a className="dropdown-item">
                       ABOUT
                     </a>
                   </div>
@@ -223,27 +220,28 @@ class ArtistPage extends Component {
                       />
                     </>
                   ) : (
-                    <>
-                    {
-                      this.state.albums.data && this.state.albums.data.map((album, key) => {
-                        // let index = this.albumIndex(album.album.title);
-                        let index = this.state.albums.data.findIndex(track => track.album.title === album.album.title)
-                        //console.log("inside render:::", album.album.title, ":::index:::", index, ":::key:::", key);
-                        if(index === key){
-                          return(<>
-                            <Link to={`/albumPage/${album.album.id}`}>
-                            <SingleSong
-                              image={album.album.cover}
-                              title={album.album.title}
-                            />
-                            </Link>
-                          {console.log("-------------Album-----------", album.album.title)}
-                          </>);
+                      <>
+                        {
+                          // eslint-disable-next-line array-callback-return
+                          this.state.albums.data && this.state.albums.data.map((album, key) => {
+                            // let index = this.albumIndex(album.album.title);
+                            let index = this.state.albums.data.findIndex(track => track.album.title === album.album.title)
+                            //console.log("inside render:::", album.album.title, ":::index:::", index, ":::key:::", key);
+                            if (index === key) {
+                              return (<>
+                                <Link to={`/albumPage/${album.album.id}`}>
+                                  <SingleSong
+                                    image={album.album.cover}
+                                    title={album.album.title}
+                                  />
+                                </Link>
+                                {console.log("-------------Album-----------", album.album.title)}
+                              </>);
+                            }
+                          })
                         }
-                      })
-                    }
-                    </>
-                  )}
+                      </>
+                    )}
                 </div>
               </div>
             </div>
