@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/login.css";
 import logo from "../assets/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { Alert, Button } from "react-bootstrap";
+import { login } from "../apis/auth";
 
 const Login = () => {
   // window.fbAsyncInit = function () {
@@ -31,8 +33,50 @@ const Login = () => {
   // FB.getLoginStatus(function(response) {
   //   statusChangeCallback(response);
   // });
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [alert, setAlert] = useState({ message: "", color: "" });
+  const [show, setShow] = useState(false);
+
+  const handleChange = (e) => {
+    let name = e.currentTarget.id;
+    let value = e.currentTarget.value;
+    setCredentials({ ...credentials, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    handleLogin(credentials);
+  };
+
+  const history = useHistory();
+
+  const handleLogin = async (credentials) => {
+    try {
+      let res = await login(credentials);
+      if (res.ok) {
+        // let { token } = await res.json();
+        // console.log(token);
+        // localStorage.setItem("bearer_token", token);
+        setShow(true);
+        setAlert({ message: "Login successful", color: "success" });
+        history.push("/");
+      } else {
+        // console.log(await res.json());
+        let { error } = await res.json();
+        setShow(true);
+        setAlert({ message: error, color: "danger" });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
+      {show && (
+        <Alert variant={alert.color} onClose={() => setShow(false)} dismissible>
+          {alert.message}
+        </Alert>
+      )}
       <section className="container-fluid login">
         <div className="login-logo">
           <Link to="/">
@@ -57,9 +101,22 @@ const Login = () => {
           </div>
           <div className="input-group">
             <span>Email address or Username</span>
-            <input placeholder="Email address or username" />
+            <input
+              id="email"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Email address or username"
+            />
             <span>Password</span>
-            <input placeholder="Password" type="password" />
+            <input
+              id="password"
+              onChange={(e) => {
+                handleChange(e);
+              }}
+              placeholder="Password"
+              type="password"
+            />
           </div>
           <p>
             <a className="forgot-password" href="#">
@@ -78,7 +135,7 @@ const Login = () => {
               </label>
             </div>
 
-            <Link to="/">
+            <Link as={Button} onClick={handleSubmit}>
               <div href="#" className="login-button login-spotify">
                 LOG IN
               </div>
