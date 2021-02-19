@@ -1,0 +1,76 @@
+body{
+    background: white !important;
+}
+.signup-logo-image{
+    margin-top: -4rem;
+    margin-bottom: 10px !important;
+    width: 130px;
+    filter: invert(100%);
+}
+h2{
+    letter-spacing: -1.2px !important
+}
+
+h6{
+    margin-bottom: 20px;
+}
+.signup-spotify-button{
+    height: 2.6rem;
+    width: 28rem;
+    margin-top: 20px;
+    background-color: #1DB954 !important;
+    color: #000 !important;
+    text-align: center;
+    font-size: 14px !important;
+    border-radius: 1000px !important;
+    border-color: transparent !important;
+    letter-spacing: 1.5px !important
+}
+
+.signup-spotify-button:hover{
+    background-color: #158c3f !important;
+}
+
+.signup-google-button{
+    height: 2.6rem;
+    width: 28rem;
+    margin-top: 20px;
+    background-color: #575757 !important;
+    color: #000 !important;
+    text-align: center;
+    font-size: 14px !important;
+    border-radius: 1000px !important;
+    border-color: transparent !important;
+    letter-spacing: 1.5px !important
+}
+
+.signup-google-button:hover{
+    background-color: #3c3c3c !important;
+}
+
+.signup-normal-button{
+    color: white !important;
+    height: 2.6rem;
+    width: 28rem;
+    margin-top: 20px;
+    background-color: #000000 !important;
+    color: #000 !important;
+    text-align: center;
+    font-size: 14px !important;
+    border-radius: 1000px !important;
+    border-color: transparent !important;
+    letter-spacing: 1.5px !important
+}
+
+.signup-normal-button:hover{
+    background-color: #303030 !important;
+}
+
+.signup-hr{
+    margin-top: 2rem;
+    width: 22rem;
+}
+
+.signup-form{
+    width: 28rem;
+}

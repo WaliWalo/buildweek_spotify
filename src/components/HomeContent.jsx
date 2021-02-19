@@ -1,15 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEllipsisH,
-  faPlay,
-} from "@fortawesome/free-solid-svg-icons";
-import {faHeart} from "@fortawesome/free-regular-svg-icons";
 import React from "react";
-import { Row, Col, Spinner } from "react-bootstrap";
+import { Row, Spinner } from "react-bootstrap";
 import "../styles/styles.css";
 import HomeNavigationMenu from "./HomeNavigationMenu";
 import SingleSong from './SingleSong';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class HomeContent extends React.Component {
   state = {
@@ -24,7 +18,7 @@ class HomeContent extends React.Component {
       const result = await this.fetchArtist(artist);
       return {
         name: artist.toUpperCase(),
-        data: result.data.slice(0,10),
+        data: result.data.slice(0, 10),
       };
     });
     const result = await Promise.all(promiseArray);
@@ -66,28 +60,28 @@ class HomeContent extends React.Component {
             className="main-content d-flex flex-column"
             style={{ overflowX: "hidden", marginBottom: '15em', height: '90vh' }}
           >
-            <div className="justify-content-center" style={{marginBottom: '-7rem !important'}}>
+            <div className="justify-content-center" style={{ marginBottom: '-7rem !important' }}>
               <HomeNavigationMenu />
             </div>
 
             {loading ? (
               <div>
-                <Spinner animation="grow" variant="light" className="mt-3 albums-spinner"/>
+                <Spinner animation="grow" variant="light" className="mt-3 albums-spinner" />
               </div>
             ) : (
-              albums.map((category, key) => (
-                <div className='mb-5'>
-                  <Link to={`/artistPage/${category.name}`}><h4 className="artist-name">{category.name}</h4></Link>
-                  <Row>
-                    {category.data.map((album, key) => (
-                      <Link to={`/albumPage/${album.album.id}`}>
-                        <SingleSong image={album.album.cover} title={album.title}/>
-                      </Link>
-                    ))}
-                  </Row>
-                </div>
-              ))
-            )}
+                albums.map((category, key) => (
+                  <div className='mb-5'>
+                    <Link to={`/artistPage/${category.name}`}><h4 className="artist-name">{category.name}</h4></Link>
+                    <Row>
+                      {category.data.map((album, key) => (
+                        <Link to={`/albumPage/${album.album.id}`}>
+                          <SingleSong image={album.album.cover} title={album.title} />
+                        </Link>
+                      ))}
+                    </Row>
+                  </div>
+                ))
+              )}
           </div>
         </section>
       </div>

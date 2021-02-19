@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import "../styles/styles.css";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +10,7 @@ const SingleSong = (params) => {
     <>
       <div>
         <Col>
-          <div className="trending card p-0 col-12 col-md-3 col-lg-2 mr-4 ml-4 mt-5 mb-5" style={{height: '150px'}}>
+          <div className="trending card p-0 col-12 col-md-3 col-lg-2 mr-4 ml-4 mt-5 mb-5" style={{ height: '150px' }}>
             <img
               className="card-img-top"
               src={params.image}

@@ -4,6 +4,7 @@ import "./App.css";
 import AsideMenu from "./components/AsideMenu";
 import Player from "./components/Player";
 import Login from "./components/Login";
+import Signup from "./components/Signup";
 import HomeContent from "./components/HomeContent";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -16,6 +17,7 @@ function App() {
   return (
     <Router>
       <Route path="/login" exact component={Login} />
+      <Route path="/Signup" exact component={Signup} />
       <Route path="/" exact component={AsideMenu} />
       <Route path="/" exact component={Player} />
       <Route path="/" exact component={HomeContent} />

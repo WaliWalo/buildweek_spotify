@@ -80,7 +80,7 @@ const Login = () => {
       <section className="container-fluid login">
         <div className="login-logo">
           <Link to="/">
-            <img src={logo} />
+            <img src={logo} alt="logo" />
           </Link>
         </div>
         <div className="login-container">
@@ -119,7 +119,7 @@ const Login = () => {
             />
           </div>
           <p>
-            <a className="forgot-password" href="#">
+            <a className="forgot-password">
               Forget your password?
             </a>
           </p>
@@ -134,7 +134,6 @@ const Login = () => {
                 Remember Me
               </label>
             </div>
-
             <Link as={Button} onClick={handleSubmit}>
               <div href="#" className="login-button login-spotify">
                 LOG IN
@@ -144,9 +143,9 @@ const Login = () => {
           <hr />
           <div className="login-footer">
             <span>Don't have an account?</span>
-            <div className="login-button login-signup">
-              <span>SIGN UP ON SPOTIFY</span>
-            </div>
+            <Button href="/signup" className="login-button login-signup" >
+              <span >SIGN UP ON SPOTIFY</span>
+            </Button>
           </div>
         </div>
       </section>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../../styles/albums.css";
 import { BsFillPlayFill, BsHeart, BsThreeDots, BsClock } from "react-icons/bs";
 import { AiFillPlayCircle, AiOutlinePlusSquare } from "react-icons/ai";
-import { Spinner, Row, Col, Button, Modal, Form } from "react-bootstrap";
+import { Spinner, Button, Modal, Form } from "react-bootstrap";
 import { ColorExtractor } from "react-color-extractor";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -92,9 +92,9 @@ class AlbumPlaylist extends Component {
     let m = Math.floor((d % 3600) / 60);
     let s = Math.floor((d % 3600) % 60);
 
-    let hDisplay = h > 0 ? h + (h == 1 ? " hour " : " hours ") : "";
-    let mDisplay = m > 0 ? m + (m == 1 ? " minute " : " minutes ") : "";
-    let sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    let hDisplay = h > 0 ? h + (h === 1 ? " hour " : " hours ") : "";
+    let mDisplay = m > 0 ? m + (m === 1 ? " minute " : " minutes ") : "";
+    let sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
     return " " + hDisplay + mDisplay + sDisplay;
   };
 
@@ -117,7 +117,7 @@ class AlbumPlaylist extends Component {
     return (
       <>
         <ColorExtractor getColors={this.getColors}>
-          <img src={this.state.album.cover_big} style={{ display: "none" }} />
+          <img src={this.state.album.cover_big} style={{ display: "none" }} alt="album cover" />
         </ColorExtractor>
         {console.log("PLAYLIST COLORS:::::::", this.state.colors)}
 
@@ -166,72 +166,74 @@ class AlbumPlaylist extends Component {
                     className="mt-3 albums-spinner"
                   />
                 ) : (
-                  this.state.album.tracks.data.map((track, key) => (
-                    <tr
-                      onclick="printInnerText(this)"
-                      onClick={() =>
-                        this.handlePlay({
-                          ...track,
-                          ...this.state.album,
-                          ...this.state.album.artist,
-                        })
-                      }
-                    >
-                      <th
-                        scope="row"
-                        style={{
-                          verticalAlign: "middle",
-                          minWidth: "30px",
-                          maxWidth: "30px",
-                        }}
+                    this.state.album.tracks.data.map((track, key) => (
+                      <tr
+                        onclick="printInnerText(this)"
+                        onClick={() =>
+                          this.handlePlay({
+                            ...track,
+                            ...this.state.album,
+                            ...this.state.album.artist,
+                          })
+                        }
                       >
-                        <span
-                          className="track-num"
-                          style={{ width: "30px !important" }}
+                        <th
+                          scope="row"
+                          style={{
+                            verticalAlign: "middle",
+                            minWidth: "30px",
+                            maxWidth: "30px",
+                          }}
                         >
-                          {key + 1}{" "}
-                        </span>
-                        <BsFillPlayFill
-                          onclick="printInnerText()"
-                          className="track-play play-track-btn"
-                        />
-                      </th>
-                      <td>
-                        <ul>
-                          <li className="song">{track.title}</li>
-                          <li
-                            className="group"
-                            style={{ verticalAlign: "middle" }}
+                          <span
+                            className="track-num"
+                            style={{ width: "30px !important" }}
                           >
-                            {track.artist.name}
-                          </li>
-                        </ul>
-                      </td>
-                      <td>
-                        <AiOutlinePlusSquare
-                          onClick={() => this.handleAddToPlaylist(track.id)}
-                          style={{ marginTop: "1em" }}
-                        />
-                      </td>
-                      <td style={{ verticalAlign: "middle" }}>
-                        <p className="group">{track.rank}</p>
-                      </td>
-                      <td style={{ verticalAlign: "middle" }}>
-                        <img
-                          src="https://img.icons8.com/ios/15/b3b3b3/like.png"
-                          className="track-heart"
-                        />
-                        <p className="group">
-                          {this.toMinutes(track.duration)}
-                        </p>
-                        <img
-                          src="https://img.icons8.com/material/15/b3b3b3/more--v1.png"
-                          className="track-dots"
-                        />
-                      </td>
-                    </tr>
-                  ))
-                )}
+                            {key + 1}{" "}
+                          </span>
+                          <BsFillPlayFill
+                            onclick="printInnerText()"
+                            className="track-play play-track-btn"
+                          />
+                        </th>
+                        <td>
+                          <ul>
+                            <li className="song">{track.title}</li>
+                            <li
+                              className="group"
+                              style={{ verticalAlign: "middle" }}
+                            >
+                              {track.artist.name}
+                            </li>
+                          </ul>
+                        </td>
+                        <td>
+                          <AiOutlinePlusSquare
+                            onClick={() => this.handleAddToPlaylist(track.id)}
+                            style={{ marginTop: "1em" }}
+                          />
+                        </td>
+                        <td style={{ verticalAlign: "middle" }}>
+                          <p className="group">{track.rank}</p>
+                        </td>
+                        <td style={{ verticalAlign: "middle" }}>
+                          <img
+                            src="https://img.icons8.com/ios/15/b3b3b3/like.png"
+                            className="track-heart"
+                            alt="like"
+                          />
+                          <p className="group">
+                            {this.toMinutes(track.duration)}
+                          </p>
+                          <img
+                            src="https://img.icons8.com/material/15/b3b3b3/more--v1.png"
+                            className="track-dots"
+                            alt="more"
+                          />
+                        </td>
+                      </tr>
+                    ))
+                  )}
               </tbody>
             </table>
             <div style={{ position: "absolute" }}>

@@ -130,7 +130,7 @@ const AsideMenu = (props) => {
           </Link>
           {/* <div>{loginButton()}</div> */}
           <div className="install-btn">
-            <a href="#">
+            <a>
               <FontAwesomeIcon icon={faArrowCircleDown} /> Install
             </a>
           </div>

@@ -73,9 +73,9 @@ class PlayListModal extends Component {
     let m = Math.floor((d % 3600) / 60);
     let s = Math.floor((d % 3600) % 60);
 
-    let hDisplay = h > 0 ? h + (h == 1 ? " hour " : " hours ") : "";
-    let mDisplay = m > 0 ? m + (m == 1 ? " minute " : " minutes ") : "";
-    let sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    let hDisplay = h > 0 ? h + (h === 1 ? " hour " : " hours ") : "";
+    let mDisplay = m > 0 ? m + (m === 1 ? " minute " : " minutes ") : "";
+    let sDisplay = s > 0 ? s + (s === 1 ? " second" : " seconds") : "";
     return " " + hDisplay + mDisplay + sDisplay;
   };
 
@@ -133,62 +133,64 @@ class PlayListModal extends Component {
                       className="mt-3 albums-spinner"
                     />
                   ) : (
-                    this.state.songs.map((track, key) => (
-                      <tr onclick="printInnerText(this)">
-                        <th
-                          scope="row"
-                          style={{
-                            verticalAlign: "middle",
-                            minWidth: "30px",
-                            maxWidth: "30px",
-                          }}
-                        >
-                          <span
-                            className="track-num"
-                            style={{ width: "30px !important" }}
+                      this.state.songs.map((track, key) => (
+                        <tr onclick="printInnerText(this)">
+                          <th
+                            scope="row"
+                            style={{
+                              verticalAlign: "middle",
+                              minWidth: "30px",
+                              maxWidth: "30px",
+                            }}
                           >
-                            {key + 1}{" "}
-                          </span>
-                          <BsFillPlayFill
-                            onclick="printInnerText()"
-                            className="track-play play-track-btn"
-                          />
-                        </th>
-                        <td>
-                          <ul>
-                            <li className="song">{track.title}</li>
-                            <li
-                              className="group"
-                              style={{ verticalAlign: "middle" }}
+                            <span
+                              className="track-num"
+                              style={{ width: "30px !important" }}
                             >
-                              {track.artist.name}
-                            </li>
-                          </ul>
-                        </td>
-                        <td style={{ verticalAlign: "middle" }}>
-                          <p className="group">{track.rank}</p>
-                        </td>
-                        <td style={{ verticalAlign: "middle" }}>
-                          <img
-                            src="https://img.icons8.com/ios/15/b3b3b3/like.png"
-                            className="track-heart"
-                          />
-                          <p className="group">
-                            {this.toMinutes(track.duration)}
-                          </p>
-                          <img
-                            src="https://img.icons8.com/material/15/b3b3b3/more--v1.png"
-                            className="track-dots"
-                          />
-                        </td>
-                        <td>
-                          <Button onClick={() => this.handleRemove(track.id)}>
-                            Remove
+                              {key + 1}{" "}
+                            </span>
+                            <BsFillPlayFill
+                              onclick="printInnerText()"
+                              className="track-play play-track-btn"
+                            />
+                          </th>
+                          <td>
+                            <ul>
+                              <li className="song">{track.title}</li>
+                              <li
+                                className="group"
+                                style={{ verticalAlign: "middle" }}
+                              >
+                                {track.artist.name}
+                              </li>
+                            </ul>
+                          </td>
+                          <td style={{ verticalAlign: "middle" }}>
+                            <p className="group">{track.rank}</p>
+                          </td>
+                          <td style={{ verticalAlign: "middle" }}>
+                            <img
+                              src="https://img.icons8.com/ios/15/b3b3b3/like.png"
+                              className="track-heart"
+                              alt="Album images"
+                            />
+                            <p className="group">
+                              {this.toMinutes(track.duration)}
+                            </p>
+                            <img
+                              src="https://img.icons8.com/material/15/b3b3b3/more--v1.png"
+                              className="track-dots"
+                              alt="Album images"
+                            />
+                          </td>
+                          <td>
+                            <Button onClick={() => this.handleRemove(track.id)}>
+                              Remove
                           </Button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
+                          </td>
+                        </tr>
+                      ))
+                    )}
                 </tbody>
               </table>
             </Modal.Body>
