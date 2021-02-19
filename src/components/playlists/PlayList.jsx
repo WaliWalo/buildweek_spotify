@@ -5,6 +5,11 @@ import Player from "../Player";
 import { connect } from "react-redux";
 import PlayListModal from "./PlayListModal";
 import backgroundImg from "../../assets/rock-concert.jpg";
+import {
+  createPlaylist,
+  deletePlaylist,
+  getPlaylist,
+} from "../../apis/playlist";
 
 const mapStateToProps = (state) => state;
 
@@ -14,6 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch({ type: "REMOVE_PLAYLIST", payload: name }),
   setPlayList: (name) => dispatch({ type: "SET_PLAYLIST", payload: name }),
   unsetPlaylist: () => dispatch({ type: "UNSET_PLAYLIST" }),
+  clearPlaylist: () => dispatch({ type: "CLEAR_PLAYLIST" }),
 });
 
 class PlayList extends Component {
@@ -39,15 +45,51 @@ class PlayList extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addPlaylist(this.state.name);
+    this.makePlaylist(this.state.name);
   };
+
+  makePlaylist = async (playlist) => {
+    const res = await createPlaylist(playlist);
+    const data = await res.json();
+    this.props.addPlaylist(data);
+
+    console.log(data);
+  };
+
+  getPlaylists = async () => {
+    let res = await getPlaylist();
+    if (res.ok) {
+      this.props.clearPlaylist();
+      let playlists = await res.json();
+      if (playlists.length > 0) {
+        playlists.forEach((playlist) => {
+          this.props.addPlaylist({ playlist });
+        });
+      }
+    } else {
+      console.log(res);
+    }
+  };
+
+  componentDidMount = () => {
+    this.getPlaylists();
+  };
+
+  // componentDidUpdate = (prevProps) => {
+  //   if (
+  //     this.props.playlists.present.length !== prevProps.playlists.present.length
+  //   ) {
+  //     // this.getPlaylists();
+  //   }
+  // };
 
   handleOnchange = (e) => {
     this.setState({ name: e.target.value });
   };
 
-  handleRemove = (e) => {
+  handleRemove = async (e) => {
     this.props.removePlaylist(e.currentTarget.id);
+    await deletePlaylist(e.currentTarget.id);
   };
 
   render() {
@@ -71,17 +113,17 @@ class PlayList extends Component {
                     }}
                   >
                     <Card.Img
-                      id={playlist.name}
+                      id={playlist.playlist._id}
                       variant="top"
                       src={backgroundImg}
                       onClick={(e) => this.handlePlayListShow(e)}
                     />
                     <Card.Body>
-                      <Card.Title>{playlist.name}</Card.Title>
+                      <Card.Title>{playlist.playlist.name}</Card.Title>
                     </Card.Body>
                     <Button
                       variant="danger"
-                      id={playlist.name}
+                      id={playlist.playlist._id}
                       onClick={(e) => this.handleRemove(e)}
                     >
                       Delete

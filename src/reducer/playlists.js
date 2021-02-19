@@ -2,22 +2,36 @@
 export default function (state = [], action) {
   switch (action.type) {
     case "ADD_PLAYLIST":
-      return [...state, { name: action.payload, songs: [] }];
+      return [...state, action.payload];
 
     case "REMOVE_PLAYLIST":
-      return [...state.filter((playlist) => playlist.name !== action.payload)];
+      return [
+        ...state.filter((playlist) => {
+          return playlist.playlist._id !== action.payload;
+        }),
+      ];
+
+    case "CLEAR_PLAYLIST":
+      return [];
 
     case "ADD_SONG_TO_PLAYLIST":
-      console.log(action.payload);
       return [
-        ...state.filter((playlist) => playlist.name !== action.payload.name),
+        ...state.filter(
+          (playlist) => playlist.playlist._id !== action.payload._id
+        ),
         {
-          name: action.payload.name,
-          songs: [
-            ...state
-              .find((playlist) => playlist.name === action.payload.name)
-              .songs.concat(action.payload.song),
-          ],
+          playlist: {
+            name: action.payload.name,
+            _id: action.payload._id,
+            userId: action.payload.userId,
+            songs: [
+              ...state
+                .find((playlist) => {
+                  return playlist.playlist._id === action.payload._id;
+                })
+                .playlist.songs.concat(action.payload.songId),
+            ],
+          },
         },
       ];
 
@@ -25,14 +39,23 @@ export default function (state = [], action) {
       console.log(action.payload);
       return [
         {
-          name: action.payload.name,
-          songs: [
-            ...state
-              .find((state) => state.name === action.payload.name)
-              .songs.filter((song) => song !== action.payload.song),
-          ],
+          playlist: {
+            name: action.payload.name,
+            _id: action.payload._id,
+            userId: action.payload.userId,
+            songs: [
+              ...state
+                .find((state) => state.playlist._id === action.payload._id)
+                .playlist.songs.filter(
+                  (song) => song !== action.payload.songId
+                ),
+            ],
+          },
         },
-        ...state.filter((state) => state.name !== action.payload.name),
+        ...state.filter((state) => {
+          console.log(state.playlist._id, action.payload._id);
+          return state.playlist._id !== action.payload._id;
+        }),
       ];
 
     default:

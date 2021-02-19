@@ -2,7 +2,7 @@
 export default function (state = {}, action) {
   switch (action.type) {
     case "SET_PLAYLIST":
-      return { name: action.payload };
+      return { _id: action.payload };
 
     case "UNSET_PLAYLIST":
       return null;

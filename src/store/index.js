@@ -20,7 +20,7 @@ const initialState = {
     picture: null,
   },
   playlists: [],
-  selectedPlaylist: {},
+  selectedPlaylist: null,
   nowPlaying: {},
 };
 
