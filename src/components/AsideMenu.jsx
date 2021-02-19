@@ -11,6 +11,9 @@ import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { connect } from "react-redux";
+import { Button } from "react-bootstrap";
+import { propTypes } from "react-bootstrap/esm/Image";
+import Cookies from "js-cookie";
 
 const mapStateToProps = (state) => state;
 
@@ -44,6 +47,8 @@ const AsideMenu = (props) => {
         picture: user.picture,
       };
       props.setUser(loginUser);
+      document.cookie = `accessToken=${user.sub}`;
+      console.log(user);
     }
   }, [isAuthenticated]);
 
@@ -123,11 +128,26 @@ const AsideMenu = (props) => {
               <span>SIGN UP</span>
             </div>
           </Link>
-          <Link to="/login">
-            <div className="login-button-index">
-              <span>LOGIN</span>
-            </div>
-          </Link>
+          {props.isLogin ? (
+            <Link
+              as={Button}
+              onClick={() => {
+                Cookies.remove("accessToken");
+                props.handleLogin();
+              }}
+            >
+              <div className="login-button-index">
+                <span>LOGOUT</span>
+              </div>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <div className="login-button-index">
+                <span>LOGIN</span>
+              </div>
+            </Link>
+          )}
+
           {/* <div>{loginButton()}</div> */}
           <div className="install-btn">
             <a>
